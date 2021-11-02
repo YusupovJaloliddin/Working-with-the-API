@@ -2,28 +2,30 @@ document.addEventListener("DOMContentLoaded", () => {
   getBitcoinPrice();
 });
 
-// document.querySelector("button").addEventListener("click", () => {
-//   //1. XMLHttpRequest ni hosil qilish
-//   console.log("hi");
-//   let xhr1 = new XMLHttpRequest();
-//   //2. Event Handler
-//   xhr1.onload = function () {
-//     let obj = JSON.parse(this.responseText);
-//     let inputt = document.querySelector("input");
-//     console.log(obj);
-//     let data = obj;
-//     let text = document.querySelector("#rate");
-//     if (inputt.value != undefined) {
-//       text.innerHTML = `1 USD is valide ${data}`;
-//     } else {
-//       text.innerHTML = `Bunday birlik yo'q`;
-//     }
-//   };
-//   // GET request;
-//   xhr1.open("GET", "https://blockchain.info/q/24hrprice");
-//   //yuborish kere
-//   xhr1.send();
-// });
+document.querySelector("button").addEventListener("click", () => {
+  //1. XMLHttpRequest ni hosil qilish
+  console.log("hi");
+  let xhr1 = new XMLHttpRequest();
+  //2. Event Handler
+  xhr1.onload = function () {
+    let obj = JSON.parse(this.responseText);
+    let inputt = document.querySelector("input");
+    let data = obj[inputt.value.toLowerCase()];
+    let text = document.querySelector("#rate");
+    if (data != undefined) {
+      text.innerHTML = data;
+    } else {
+      text.innerHTML = `Bunday birlik yo'q`;
+    }
+  };
+  // GET request;
+  xhr1.open(
+    "GET",
+    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
+  );
+  //yuborish kere
+  xhr1.send();
+});
 
 function updateBitcoinPrice(newValue) {
   document.querySelector("#narxi").innerHTML = `${newValue} (USD)`;
